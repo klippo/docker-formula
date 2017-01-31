@@ -47,6 +47,6 @@
   'Debian': 'docker-py',
 }.get(grains.os_family) %}
 
-{% do defaults.docker.update(docker_pip_pkg) %}
+{% do defaults.docker.update(python_pip_pkg) %}
 {% do defaults.docker.update(docker_python_pkg) %}
 
