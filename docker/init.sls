@@ -1,4 +1,5 @@
 {% from "docker/map.jinja" import docker with context %}
+{% from "docker/map.jinja" import docker_pkg with context %}
 {% if docker.kernel is defined %}
 include:
   - .kernel
