@@ -41,3 +41,8 @@
   'RedHat': 'python2-pip',
   'Debian': 'python-pip',
 }.get(grains.os_family) %}
+
+{% set docker_python_pkg = {
+  'RedHat': 'docker-python',
+  'Debian': 'docker-py',
+}.get(grains.os_family) %}

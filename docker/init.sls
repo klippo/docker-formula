@@ -139,9 +139,9 @@ docker-py requirements:
 docker-py:
   pip.installed:
     {%- if "pip_version" in docker %}
-    - name: docker-py {{ docker.pip_version }}
+    - name: {{ docker.docker_python_pkg }} {{ docker.pip_version }}
     {%- else %}
-    - name: docker-py
+    - name: {{ docker.docker_python_pkg }}
     {%- endif %}
     - reload_modules: true
 {% endif %}
