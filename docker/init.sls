@@ -50,7 +50,7 @@ purge old packages:
 {% if grains['os'] == 'Ubuntu' %}
       - lxc-docker*
       - docker.io*
-{% elif grains['os'] == 'RedHat' %}
+{% elif grains['os_family'] == 'RedHat' %}
       - docker
 {% endif %}
     - require_in:
@@ -64,7 +64,7 @@ docker package repository:
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
-    {% elif grains['os'] == 'RedHat' %}
+    {% elif grains['os_family'] == 'RedHat' %}
     - baseurl: https://yum.dockerproject.org/repo/main/centos/7/
     {% endif %}
 {%- endif %}
