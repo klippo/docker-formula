@@ -67,6 +67,7 @@ docker package repository:
 {%- endif %}
     {% elif grains['os'] == 'Redhat' %}
     - baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    {% endif %}
     - refresh_db: True
 {%- endif %}
     - require_in:
