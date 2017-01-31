@@ -127,7 +127,7 @@ docker-service:
 {% if docker.install_docker_py %}
 docker-py requirements:
   pkg.installed:
-    - name: {{ python_pip_pkg }}
+    - name: {{ docker_pkg.python_pip }}
   pip.installed:
     {%- if "pip" in docker and "version" in docker.pip %}
     - name: pip {{ docker.pip.version }}
@@ -139,9 +139,9 @@ docker-py requirements:
 docker-py:
   pip.installed:
     {%- if "pip_version" in docker %}
-    - name: {{ docker_python_pkg }} {{ docker.pip_version }}
+    - name: {{ docker_pkg.python_python }} {{ docker.pip_version }}
     {%- else %}
-    - name: {{ docker_python_pkg }}
+    - name: {{ docker_pkg.docker_python }}
     {%- endif %}
     - reload_modules: true
 {% endif %}

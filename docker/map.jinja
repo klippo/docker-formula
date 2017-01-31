@@ -46,3 +46,14 @@
   'RedHat': 'docker-python',
   'Debian': 'docker-py',
 }.get(grains.os_family) %}
+
+{% set docker_pkg = salt['grains.filter_by']({
+    'Debian': {
+        'python_pip': 'python-pip',
+        'docker_python': 'docker-py',
+    },
+    'RedHat': {
+        'python_pip': 'python2-pip',
+        'docker_python': 'docker-python',
+    },
+}, merge=salt['pillar.get']('docker_pkg:lookup')) %}
