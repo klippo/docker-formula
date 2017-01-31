@@ -66,6 +66,7 @@ docker package repository:
     - file: /etc/apt/sources.list.d/docker.list
     {% elif grains['os_family'] == 'RedHat' %}
     - baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    - name: docker
     {% endif %}
 {%- endif %}
     - refresh_db: True
