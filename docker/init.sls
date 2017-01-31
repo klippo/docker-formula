@@ -64,10 +64,10 @@ docker package repository:
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
-{%- endif %}
     {% elif grains['os'] == 'Redhat' %}
     - baseurl: https://yum.dockerproject.org/repo/main/centos/7/
     {% endif %}
+{%- endif %}
     - refresh_db: True
 {%- endif %}
     - require_in:
