@@ -38,7 +38,7 @@
 {% set compose = salt['pillar.get']('docker:compose', default={}, merge=True) %}
 
 {% set python_pip_pkg = {
-  'RedHat': 'python2-pip',
+  'Re   dHat': 'python2-pip',
   'Debian': 'python-pip',
 }.get(grains.os_family) %}
 
@@ -46,7 +46,3 @@
   'RedHat': 'docker-python',
   'Debian': 'docker-py',
 }.get(grains.os_family) %}
-
-{% do defaults.docker.update(python_pip_pkg) %}
-{% do defaults.docker.update(docker_python_pkg) %}
-
