@@ -7,13 +7,16 @@ include:
 docker package dependencies:
   pkg.installed:
     - pkgs:
-      - apt-transport-https
       - iptables
       - ca-certificates
+    {% if grains['os'] == 'Ubuntu' %}
+      - apt-transport-https
       - python-apt
+      {% endif %}
 
 {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
 docker package repository:
+# TODO: Add for centos
   pkgrepo.managed:
     - name: deb http://http.debian.net/debian jessie-backports main
 {%- else %}
@@ -30,6 +33,7 @@ docker package repository:
   {%- endif %}
 
 {%- if "version" in docker and use_old_repo %}
+# TODO: Add for Centos
 docker package repository:
   pkgrepo.managed:
     - name: deb https://get.docker.com/ubuntu docker main
@@ -37,23 +41,32 @@ docker package repository:
     - keyid: d8576a8ba88d21e9
 {%- else %}
 purge old packages:
+{% if grains['os'] == 'Ubuntu' %}
   pkgrepo.absent:
     - name: deb https://get.docker.com/ubuntu docker main
+{% endif %}
   pkg.purged:
-    - pkgs: 
+    - pkgs:
+{% if grains['os'] == 'Ubuntu' %}
       - lxc-docker*
       - docker.io*
+{% elif grains['os'] == 'RedHat' %}
+      - docker
+{% endif %}
     - require_in:
       - pkgrepo: docker package repository
 
 docker package repository:
   pkgrepo.managed:
-    - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
+  {%  if grains['os'] == 'Ubuntu' %}
+    - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
-{%- endif %}
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
+{%- endif %}
+    {% elif grains['os'] == 'Redhat' %}
+    - baseurl: https://yum.dockerproject.org/repo/main/centos/7/
     - refresh_db: True
 {%- endif %}
     - require_in:
