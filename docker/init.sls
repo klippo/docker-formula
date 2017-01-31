@@ -67,6 +67,7 @@ docker package repository:
     {% elif grains['os_family'] == 'RedHat' %}
     - baseurl: https://yum.dockerproject.org/repo/main/centos/7/
     - name: docker
+    - gpgkey: https://yum.dockerproject.org/gpg
     {% endif %}
 {%- endif %}
     - refresh_db: True
